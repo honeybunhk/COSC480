@@ -1,0 +1,18 @@
+CC = gcc
+CFLAGS = -Wall -fPIC
+
+all: libshelllib.so myshell
+
+shelllib.o: shelllib.c shelllib.h
+	$(CC) $(CFLAGS) -c shelllib.c
+
+libshelllib.so: shelllib.o
+	$(CC) -shared -o libshelllib.so shelllib.o
+
+myshell: myshell.c shelllib.h
+	$(CC) -Wall myshell.c -L. -lshelllib -o myshell
+
+clean:
+	rm -f *.o *.so myshell
+:wq
+:q!
